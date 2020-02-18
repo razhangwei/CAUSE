@@ -1,0 +1,19 @@
+channels:
+  - defaults
+  - pytorch
+  - conda-forge
+dependencies:
+  - numpy
+  - scipy
+  - matplotlib
+  - scikit-learn
+  - pandas
+  - pytorch::pytorch=1.2.0
+  - cxx-compiler # required by tick
+  - dill # required by tick
+  - swig # required by tick
+  - pip:
+    - tick==0.6.0
+    - pynvml
+  - tqdm
+
