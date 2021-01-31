@@ -9,8 +9,6 @@ shared_args="--dataset $dataset"
 n_splits=5  # if modified, remember to modify below as well!!!
 
 LOCAL_RUN="xargs -L1 python"
-CONDOR_RUN="./condor_wrapper.py python --notify_mode Always"
-CONDOR_RUN_GPU="$CONDOR_RUN --gpu 1 --getenv"
 
 if [ ! -d pkg ]; then
     echo "Please execute the script at the root project directory." && exit
@@ -47,7 +45,3 @@ if [[ $* == *all* ]] || [[ $* == *ERPP* ]]; then
 fi
 
 # python postprocessing/summarize_results.py $dataset
-# python postprocessing/compare_hparams.py $dataset HExp decay penalty
-# python postprocessing/compare_hparams.py $dataset NPHC integration_support
-# python postprocessing/compare_hparams.py $dataset HSG max_mean n_gaussians penalty
-# python postprocessing/compare_hparams.py $dataset ERPP max_mean n_bases

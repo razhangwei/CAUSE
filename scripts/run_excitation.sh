@@ -10,8 +10,6 @@ shared_args="--dataset $dataset"
 n_splits=5  # if modified, remember to modify below as well!!!
 
 LOCAL_RUN="xargs -L1 -P${n_splits} python"
-CONDOR_RUN="./condor_wrapper.py python --notify_mode Always"
-CONDOR_RUN_GPU="$CONDOR_RUN --gpu 1 --getenv"
 
 if [ ! -d pkg ]; then
     echo "Please execute the script at the root project directory." && exit
@@ -54,12 +52,8 @@ if [[ $* == *all* ]] || [[ $* == *RPPN* ]]; then
     printf "%s\n" "$WS/tasks/train.py RPPN $shared_args --epoch 200  --init_scale 50 --cuda --split_id "{0..4} | $LOCAL_RUN
 fi
 
-# if [[ $* == *all* ]] || [[ $* == *RME* ]]; then
-#     printf "%s\n" "$WS/tasks/train.py RME $shared_args --epochs 30 --l2_reg 0.1 --steps 50 --cuda --split_id "{0..4} | $LOCAL_RUN
-# fi
-
 if [[ $* == *all* ]] || [[ $* == *ERPP* ]]; then
     printf "%s\n" "$WS/tasks/train.py ERPP $shared_args --epoch 200 --cuda --split_id "{0..4} | $LOCAL_RUN
 fi
 
-python postprocessing/summarize_results.py $dataset
+# python postprocessing/summarize_results.py $dataset

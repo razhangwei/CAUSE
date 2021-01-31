@@ -19,7 +19,6 @@ sys.path.append(".")
 from pkg.models.rnn import (
     EventSeqDataset,
     ExplainableRecurrentPointProcess,
-    RecurrentMarkDensityEstimator,
 )
 from pkg.models.rppn import RecurrentPointProcessNet
 from pkg.utils.argparser.training import add_subparser_arguments
@@ -54,9 +53,7 @@ def get_parser():
 
 
 def get_model(args, n_types):
-    if args.model == "RME":
-        model = RecurrentMarkDensityEstimator(n_types=n_types, **vars(args))
-    elif args.model == "ERPP":
+    if args.model == "ERPP":
         model = ExplainableRecurrentPointProcess(n_types=n_types, **vars(args))
     elif args.model == "RPPN":
         model = RecurrentPointProcessNet(n_types=n_types, **vars(args))

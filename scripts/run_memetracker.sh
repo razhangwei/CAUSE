@@ -2,8 +2,6 @@
 WS=`pwd`
 CUDA_DEVICE_ORDER=PCI_BUS_ID
 LOCAL_RUN="xargs -L1 python"
-CONDOR_RUN="./condor_wrapper.py python --notify_mode Always"
-CONDOR_RUN_GPU="$CONDOR_RUN --gpu 1 --getenv"
 
 n_types=100
 # dataset="MemeTracker-0.2M-$n_types"
@@ -57,7 +55,4 @@ if [[ $* == *all* ]] || [[ $* == *ERPP* ]]; then
     printf "%s\n" "$WS/tasks/train.py ERPP $shared_args --max_mean 100 --n_bases 10 --batch_size 256 --bucket_seqs --hidden_size 128 --lr 0.001 --epochs 150 --attr_batch_size 32 --steps 20 --occurred_type_only --cuda --split_id "{0..4} | $LOCAL_RUN
 fi
 
-python postprocessing/summarize_results.py $dataset
-# python postprocessing/compare_hparams.py $dataset HExp decay
-# python postprocessing/compare_hparams.py $dataset HSG max_mean n_gaussians
-# python postprocessing/compare_hparams.py $dataset ERPP max_mean n_bases
+# python postprocessing/summarize_results.py $dataset

@@ -17,9 +17,6 @@ elif [ $# == 0 ]; then
     echo "No argument provided."
 fi
 
-CONDOR_RUN="./condor_wrapper.py python --notify_mode Always"
-CONDOR_RUN_GPU="$CONDOR_RUN --gpu 1 --getenv"
-
 # preprocessing/data generation
 
 if [[ $* == *all* ]] || [[ $* == *preprocess* ]]; then
@@ -49,12 +46,8 @@ if [[ $* == *all* ]] || [[ $* == *RPPN* ]]; then
     printf "%s\n" "$WS/tasks/train.py RPPN $shared_args --cuda --split_id "{0..4} | $LOCAL_RUN
 fi
 
-# if [[ $* == *all* ]] || [[ $* == *RME* ]]; then
-#     printf "%s\n" "$WS/tasks/train.py RME $shared_args --epochs 30 --l2_reg 0.1 --steps 50 --cuda --split_id "{0..4} | $LOCAL_RUN
-# fi
-
 if [[ $* == *all* ]] || [[ $* == *ERPP* ]]; then
     printf "%s\n" "$WS/tasks/train.py ERPP $shared_args --epoch 200 --cuda --split_id "{0..4} | $LOCAL_RUN
 fi
 
-python postprocessing/summarize_results.py $dataset
+# python postprocessing/summarize_results.py $dataset
